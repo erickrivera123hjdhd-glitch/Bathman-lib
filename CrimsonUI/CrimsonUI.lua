@@ -8,18 +8,21 @@
                config save/load (flags), UI scale, background images
 
     Quick start:
-        local Library = loadstring(game:HttpGet("<raw url to this file>"))()
+        local Library = loadstring(game:HttpGet(
+            "https://raw.githubusercontent.com/erickrivera123hjdhd-glitch/Bathman-lib/refs/heads/Main/CrimsonUI/CrimsonUI.lua"
+        ))()
         local Window  = Library.new({ Title = "My Hub" })
         local Tab     = Window:AddTab("Main")
         Tab:AddButton({ Text = "Hello", Callback = function() print("hi") end })
 
     Background image:
+        -- put your image in the repo (e.g. CrimsonUI/bg.png) and use its raw link:
         local Window = Library.new({
             Title = "My Hub",
-            BackgroundUrl = "https://i.imgur.com/xxxxx.png", -- direct image link
+            BackgroundUrl = "https://raw.githubusercontent.com/erickrivera123hjdhd-glitch/Bathman-lib/refs/heads/Main/CrimsonUI/bg.png",
             BackgroundTransparency = 0.2,                    -- 0 = solid, 1 = hidden
         })
-        Window:SetBackground("rbxassetid://123456") -- swap any time
+        Window:SetBackground("rbxassetid://123456") -- swap any time (no download needed)
         Window:ClearBackground()
         http(s) links are downloaded with getcustomasset + writefile and saved
         as "crimsonui_bg.png" (executor only).
