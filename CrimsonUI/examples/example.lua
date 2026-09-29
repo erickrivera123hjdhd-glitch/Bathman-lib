@@ -1,5 +1,5 @@
 -- Replace the URL with your own raw GitHub link
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/erickrivera123hjdhd-glitch/Bathman-lib/refs/heads/Main/CrimsonUI/CrimsonUI.lua?token=GHSAT0AAAAAAEI3MOPUYJ5GEKIUGI6MEDU42V323KQ"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/erickrivera123hjdhd-glitch/Bathman-lib/refs/heads/Main/CrimsonUI/CrimsonUI.lua"))()
 
 local Window = Library.new({
 	Title = "My Hub",
