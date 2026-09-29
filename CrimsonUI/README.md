@@ -1,64 +1,158 @@
-Crimson UI
+# CrimsonUI
 
-A small, themeable Roblox GUI library for client-side / executor use.
+A lightweight, themeable Roblox UI library built for clean and responsive interfaces.
 
-Elements: Button (toggle / confirm / cooldown), Button rows, Toggle, Slider, Textbox, Dropdown (single + multi), Keybind, Label, Section, DividerExtras: Tabs, live theme switching, fading toasts, draggable avatar toggle, config save/load via flags, UI scale, background images
+CrimsonUI provides a simple API for creating polished menus with tabs, controls, notifications, themes, keybinds, and configuration support.
 
-Quick start
+## Features
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/YOUR_USER/CrimsonUI/main/CrimsonUI.lua"))()local Window = Library.new({ Title = "My Hub" })local Tab    = Window:AddTab("Main")Tab:AddButton({ Text = "Hello", Callback = function() print("hi") end })Window:AddSettingsTab()
-See examples/example.lua for a fuller demo.
+### Elements
 
-Window options (Library.new)
+* Buttons
+* Button rows
+* Toggles
+* Sliders
+* Textboxes
+* Single-select dropdowns
+* Multi-select dropdowns
+* Keybinds
+* Labels
+* Sections
+* Dividers
 
-Option	Description
-Title	Title bar text
-Name	ScreenGui name (default "CrimsonUI")
-Theme	Theme name (Crimson, Midnight, Emerald, Mono) or a custom theme table
-Size	Vector2, default 420x320
-Scale	UI scale, default 1
-ToggleKey	Enum.KeyCode to show/hide the window
-ToggleButton	false to hide the floating avatar button
-ToggleImage	Custom image for the avatar button
-StartHidden	true to open with the window hidden (avatar button still works)
-BackgroundUrl / Background	Background image: "rbxassetid://123", a bare id number, or an https:// image link
-BackgroundTransparency	Background image transparency, 0 (solid) - 1 (hidden), default 0
-TintTransparency	Dark overlay strength over the background, default 0.85
-Transparency	Panel transparency, default 0.15
-Parent	Override where the GUI is parented
-Background images
+### Library Features
 
--- at creationlocal Window = Library.new({    Title = "My Hub",    BackgroundUrl = "https://i.imgur.com/xxxxx.png", -- direct image link    BackgroundTransparency = 0.2,})-- or any time laterWindow:SetBackground("rbxassetid://123456")   -- decal/image id, loads instantlyWindow:SetBackground(123456)                  -- bare id also worksWindow:SetBackground("https://i.imgur.com/x.png")Window:SetBackgroundTransparency(0.5)Window:SetTintTransparency(0.7)Window:ClearBackground()
-rbxassetid sources work everywhere and need no download.
-http(s) links are downloaded via Library.ResolveAsset(url, "crimsonui_bg.png") (game:HttpGet -> writefile -> getcustomasset) and require an executor with those functions; failures warn in the console.
-Use a direct image link (https://i.imgur.com/abc.png), not a page link (https://imgur.com/abc).
-SetBackground returns true/false for whether the source was accepted.
-The Settings tab has a Background section to set/clear the image and tune transparency/tint live.
-Window methods
+* Multiple built-in themes
+* Custom themes
+* Live theme switching
+* Tabs
+* Animated notifications
+* Draggable toggle button
+* UI scaling
+* Config save/load
+* Config export/import
+* Element flags
+* Runtime UI controls
 
-AddTab, SelectTab, AddSettingsTab, SetTheme, SetScale, SetTitle, SetStatus(text, isError), SetBackground(source), SetBackgroundTransparency, SetTintTransparency, ClearBackground, Notify({Title, Text, Duration, Error}), Show, Hide, Toggle, IsVisible, SetToggleKey, Destroy
+## Quick Start
 
-Config: SaveConfig, LoadConfig, DeleteConfig, ListConfigs, ExportConfig, ImportConfig
+```lua
+local Library = loadstring(game:HttpGet(
+    "https://raw.githubusercontent.com/YOUR_USER/CrimsonUI/main/CrimsonUI.lua"
+))()
 
-Elements
+local Window = Library.new({
+    Title = "My Hub"
+})
 
-All elements return a handle with SetVisible, SetCallback, SetText and Destroy. Elements that pass a Flag are stored in Window.Flags[flag] and included in saved configs.
+local Main = Window:AddTab("Main")
 
-Method	Key options	Handle
-Tab:AddButton	Text, Style, Callback, Disabled, Toggle, ToggledText, Confirm, ConfirmText, Cooldown, Height	SetText, SetStyle, SetDisabled, GetToggled, SetToggled, Fire
-Tab:AddButtonRow(list)	array of button option tables (empty lists are safe)	array of handles
-Tab:AddToggle	Name, Default, Callback, Flag	Set, Get, SetText
-Tab:AddSlider	Name, Min, Max, Step, Default, Decimals, Suffix, Callback, Flag	Set, Get, SetText
-Tab:AddTextbox	Name, Default, Placeholder, ClearOnFocus, Numeric, Callback, Flag	Set, Get, SetText
-Tab:AddDropdown	Name, Options, Default, Multi, MaxVisible, Callback, Flag	Set, Get, SetText, SetOptions
-Tab:AddKeybind	Name, Default, Callback, ChangedCallback, Flag	Set, Get, SetText
-Tab:AddLabel / AddSection / AddDivider	text	SetText
-Custom themes
+Main:AddButton({
+    Text = "Hello",
+    Callback = function()
+        print("Hello from CrimsonUI")
+    end
+})
 
-local theme = Library.MakeTheme({    panel = Color3.fromRGB(20, 20, 30), tint = Color3.fromRGB(5, 5, 10),    btn = Color3.fromRGB(120, 60, 200), btnHover = Color3.fromRGB(150, 90, 230),    btnActive = Color3.fromRGB(80, 30, 150), btnActiveHover = Color3.fromRGB(100, 50, 180),    busy = Color3.fromRGB(50, 50, 60), accent = Color3.fromRGB(170, 110, 255),    track = Color3.fromRGB(30, 30, 44), chip = Color3.fromRGB(24, 24, 36),})Window:SetTheme(theme)
-Notes
+Window:AddSettingsTab()
+```
 
-Background image downloads need writefile + getcustomasset and are saved as crimsonui_bg.png in the workspace root. Config saving needs writefile/readfile. Without those the UI still works; those features just report unavailable (rbxassetid backgrounds always work).
-Configs are saved to the CrimsonUI/ workspace folder (change with Library.Folder).
-Keybind capture cancels if you click away instead of pressing a key.
-Toasts fade in/out and cap at 5 on screen.
+For a complete example, see [`examples/example.lua`](examples/example.lua).
+
+## Built-in Themes
+
+CrimsonUI includes several ready-to-use themes:
+
+* `Crimson`
+* `Midnight`
+* `Emerald`
+* `Mono`
+
+Themes can be changed while the UI is running.
+
+```lua
+Window:SetTheme("Midnight")
+```
+
+Custom themes are also supported through `Library.MakeTheme()`.
+
+## Configuration
+
+Elements can use flags to automatically include their values in configurations.
+
+```lua
+Main:AddToggle({
+    Name = "Auto Farm",
+    Flag = "AutoFarm",
+    Default = false,
+
+    Callback = function(Value)
+        print(Value)
+    end
+})
+```
+
+Available configuration methods:
+
+```lua
+Window:SaveConfig()
+Window:LoadConfig()
+Window:DeleteConfig()
+Window:ListConfigs()
+Window:ExportConfig()
+Window:ImportConfig()
+```
+
+## Example
+
+```lua
+local Main = Window:AddTab("Main")
+
+Main:AddSection("Player")
+
+Main:AddSlider({
+    Name = "WalkSpeed",
+    Flag = "WalkSpeed",
+    Min = 16,
+    Max = 200,
+    Default = 16,
+
+    Callback = function(Value)
+        print("WalkSpeed:", Value)
+    end
+})
+
+Main:AddToggle({
+    Name = "Infinite Jump",
+    Flag = "InfiniteJump",
+    Default = false,
+
+    Callback = function(Value)
+        print("Infinite Jump:", Value)
+    end
+})
+```
+
+## Project Structure
+
+```text
+CrimsonUI/
+├── CrimsonUI.lua
+├── README.md
+├── LICENSE
+└── examples/
+    └── example.lua
+```
+
+## Requirements
+
+CrimsonUI is designed to work without requiring external UI frameworks.
+
+Configuration features use the executor's file functions when available:
+
+* `writefile`
+* `readfile`
+* `isfile`
+* `makefolder`
+
+The core UI does not depend on configuration functionality.
